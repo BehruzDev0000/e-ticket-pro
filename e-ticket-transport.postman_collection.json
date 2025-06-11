@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "1a50ff98-0c4d-444d-84c1-a566e247f532",
+		"name": "e-ticket-transport",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "45773708",
+		"_collection_link": "https://behruz-3796625.postman.co/workspace/Behruz's-Workspace~12555259-3137-4a1e-8f79-4806d989b0cd/collection/45773708-1a50ff98-0c4d-444d-84c1-a566e247f532?action=share&source=collection_link&creator=45773708"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "createAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"G7#uK@x!29qVd$Tp\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/admin"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAdmins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/admin"
+					},
+					"response": []
+				},
+				{
+					"name": "getAdminById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/admin/68492df9c96838c1fab7653f"
+					},
+					"response": []
+				},
+				{
+					"name": "updateAdmin",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"owner\",\r\n    \"password\":\"vR9!mL@83#XpQ2zT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/admin/68492df9c96838c1fab7653f"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAdmin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3000/admin/68492e12c96838c1fab76542"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
