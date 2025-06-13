@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "1a50ff98-0c4d-444d-84c1-a566e247f532",
+		"_postman_id": "4dd8b00a-0cc5-4282-a9ee-96640b3190d9",
 		"name": "e-ticket-transport",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "45773708",
-		"_collection_link": "https://behruz-3796625.postman.co/workspace/Behruz's-Workspace~12555259-3137-4a1e-8f79-4806d989b0cd/collection/45773708-1a50ff98-0c4d-444d-84c1-a566e247f532?action=share&source=collection_link&creator=45773708"
+		"_collection_link": "https://behruz-3796625.postman.co/workspace/Behruz's-Workspace~12555259-3137-4a1e-8f79-4806d989b0cd/collection/45773708-4dd8b00a-0cc5-4282-a9ee-96640b3190d9?action=share&source=collection_link&creator=45773708"
 	},
 	"item": [
 		{
@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"G7#uK@x!29qVd$Tp\"\r\n}",
+							"raw": "{\r\n    \"username\":\"admin_937xerp\",\r\n    \"password\":\"R4#vE9mn2Tr!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -30,19 +30,33 @@
 				},
 				{
 					"name": "getAllAdmins",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin_937xerp\",\r\n    \"password\":\"R4#vE9mn2Tr!\"\r\n}"
+						},
 						"url": "localhost:3000/admin"
 					},
 					"response": []
 				},
 				{
 					"name": "getAdminById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "localhost:3000/admin/68492df9c96838c1fab7653f"
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin_937xerp\",\r\n    \"password\":\"R4#vE9mn2Tr!\"\r\n}"
+						},
+						"url": "localhost:3000/admin/684bef9dd9b3ec3d434b6b22"
 					},
 					"response": []
 				},
@@ -53,14 +67,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"owner\",\r\n    \"password\":\"vR9!mL@83#XpQ2zT\"\r\n}",
+							"raw": "{\r\n    \"username\":\"admincontroller\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "localhost:3000/admin/68492df9c96838c1fab7653f"
+						"url": "localhost:3000/admin/684bef91d9b3ec3d434b6b1f"
 					},
 					"response": []
 				},
@@ -69,7 +83,156 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "localhost:3000/admin/68492e12c96838c1fab76542"
+						"url": "localhost:3000/admin/684bef91d9b3ec3d434b6b1f"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ticket",
+			"item": [
+				{
+					"name": "createTicket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"transport_id\": \"684bd7b566508a692994e556\",\r\n  \"from\": \"Tashkent\",\r\n  \"to\": \"Qashqadaryo\",\r\n  \"price\": 2500000,\r\n  \"departure\": \"2025-06-13T15:56:00.000Z\",\r\n  \"arrival\": \"2025-06-13T17:00:00.000Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/ticket"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTickets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"transport_id\": \"684bd7b566508a692994e556\",\r\n  \"from\": \"Tashkent\",\r\n  \"to\": \"Qashqadaryo\",\r\n  \"price\": 2500000,\r\n  \"departure\": \"2025-06-13T15:56:00.000Z\",\r\n  \"arrival\": \"2025-06-13T17:00:00.000Z\"\r\n}\r\n"
+						},
+						"url": "localhost:3000/ticket"
+					},
+					"response": []
+				},
+				{
+					"name": "getTicketById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"transport_id\": \"684bd7b566508a692994e556\",\r\n  \"from\": \"Tashkent\",\r\n  \"to\": \"Qashqadaryo\",\r\n  \"price\": 2500000,\r\n  \"departure\": \"2025-06-13T15:56:00.000Z\",\r\n  \"arrival\": \"2025-06-13T17:00:00.000Z\"\r\n}\r\n"
+						},
+						"url": "localhost:3000/ticket/684bf7b17e4d99bb07c9e847"
+					},
+					"response": []
+				},
+				{
+					"name": "updateTicket",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"transport_id\": \"684bd7b566508a692994e556\",\r\n  \"from\": \"Tashkent\",\r\n  \"to\": \"Xorazm\",\r\n  \"price\": 2500000,\r\n  \"departure\": \"2025-06-13T15:56:00.000Z\",\r\n  \"arrival\": \"2025-06-13T17:00:00.000Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/ticket/684bdbe30c38cd668b640285"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTicketById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transport",
+			"item": [
+				{
+					"name": "createTransport",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"transport_type\":\"avtobus\",\r\n    \"class\":\"premium\",\r\n    \"seat\":\"20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/transport"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTrasports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/transport"
+					},
+					"response": []
+				},
+				{
+					"name": "getTransportById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/transport/684bfafcf20fdd76aa8a9835"
+					},
+					"response": []
+				},
+				{
+					"name": "updateTransportById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"transport_type\":\"avtobus\",\r\n    \"class\":\"business\",\r\n    \"seat\":15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/transport/684bfafcf20fdd76aa8a9835"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTransportById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3000/transport/684bd7b566508a692994e556"
 					},
 					"response": []
 				}
