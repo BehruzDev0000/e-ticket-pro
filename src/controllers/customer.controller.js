@@ -2,8 +2,10 @@ import { successRes } from "../helpers/success.response.js";
 import { handleError } from "../helpers/error.handle.js";
 import Customer from "../models/customer.model.js";
 import { createCustomerValidation, updateCustomerValidation } from "../validation/customer.validation.js";
+import {Token} from "../utils/token.service.js"; 
+const token = new Token();
 export class CustomerController {
-    async createCustomer(req,res){
+    async signUp(req,res){
         try {
             const {value,error}=createCustomerValidation(req.body)
             if(error){
@@ -13,8 +15,19 @@ export class CustomerController {
             if (existsPhoneNumber) {
                 return handleError(res, 'Phone number already exists', 409);
             }
-            const customer = await Customer.create(value)
-            return successRes(res, customer, 201)
+             const customer = await Customer.create(value);
+            const payload = { id: customer._id };
+            const accessToken = await token.generateAccessToken(payload);
+            const refreshToken = await token.generateRefreshToken(payload);
+            res.cookie('refreshTokenCustomer', refreshToken, {
+                httpOnly: true,
+                secure: true,
+                maxAge: 30 * 24 * 60 * 60 * 1000
+            });
+            return successRes(res, {
+                data: customer,
+                token: accessToken
+            }, 201);
         } catch (error) {
             return handleError(res,error)
         }

@@ -242,7 +242,7 @@
 			"name": "customer",
 			"item": [
 				{
-					"name": "createCustomer",
+					"name": "signUp",
 					"request": {
 						"method": "POST",
 						"header": [],

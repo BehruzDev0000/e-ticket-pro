@@ -1,13 +1,12 @@
 import Admin from '../models/admin.model.js';
 import { Crypto } from '../utils/encrypt-decrypt.js';
-import { config } from 'dotenv';
-config();
+import config from '../config/main.js';
 
 export const createSuperAdmin = async () => {
     try {
         const existsSuperAdmin = await Admin.findOne({ role: 'superadmin' });
         if (!existsSuperAdmin) {
-            const hashedPassword = await Crypto.encrypt(process.env.SUPERADMIN_PASSWORD);
+            const hashedPassword = await Crypto.encrypt(config.SUPERADMIN_PASSWORD);
             await Admin.create({
                 username: process.env.SUPERADMIN_USERNAME,
                 hashedPassword,

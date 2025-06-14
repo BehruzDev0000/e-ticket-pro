@@ -4,7 +4,7 @@ const router = Router();
 
 const controller= new CustomerController();
 router
-.post('/',controller.createCustomer)
+.post('/',controller.signUp)
 .get('/',controller.getAllCustomers)
 .get('/:id',controller.getCustomerById)
 .patch('/:id',controller.updateCustomerById)
