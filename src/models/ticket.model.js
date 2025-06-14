@@ -7,6 +7,7 @@ const ticketSchema = new Schema({
     price:{type:Number,required:true, min: 0},
     departure:{type:Date,required:true},
     arrival:{type:Date,required:true},
+    customer_id: {type: Types.ObjectId, ref: 'Customer', required: true},
 })
 
 export default model('Ticket', ticketSchema);

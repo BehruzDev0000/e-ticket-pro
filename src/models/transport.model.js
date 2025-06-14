@@ -9,7 +9,7 @@ const TransportSchema = new Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 })
-TransportSchema.virtual('ticket', {
+TransportSchema.virtual('tickets', {
   ref: 'Ticket',
   localField: '_id',
   foreignField: 'transport_id'

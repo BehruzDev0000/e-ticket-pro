@@ -21,7 +21,7 @@ export class TransportController {
     }
     async getAllTransports(_, res) {
         try {
-            const transports = await Transport.find().populate('ticket');
+            const transports = await Transport.find().populate('tickets');
             return successRes(res, transports);
         } catch (error) {
             return handleError(res, error);
@@ -30,7 +30,8 @@ export class TransportController {
     async getTransportById(req,res){
         try {
             const  id  = req.params.id;
-            const transport = await Transport.findById(id).populate('ticket');
+            await TransportController.findTransportById(res, id);
+            const transport = await Transport.findById(id).populate('tickets');
             return successRes(res, transport);
         } catch (error) {
             return handleError(res, error);
@@ -44,6 +45,8 @@ export class TransportController {
             if (error) {
                 return handleError(res, error, 422);
             }
+            
+            await TransportController.findTransportById(res, id);
             const updatedTransport=await Transport.findByIdAndUpdate(id,value,{new:true})
             return successRes(res, updatedTransport);
         } catch (error) {

@@ -237,6 +237,111 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "createCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"behruzdeveloper0012@gmail.com\",\r\n    \"phone_number\":\"+998979460810\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/customer"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCustomers",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomerById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/customer/684cf393598d646b495b5771"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCustomerById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": "localhost:3000/customer/684cf393598d646b495b5771"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCustomerById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "passport_info",
+			"item": [
+				{
+					"name": "createPassport",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPassports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/passport"
+					},
+					"response": []
+				},
+				{
+					"name": "getPassportById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "updatePassportById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": "localhost:3000/passport/684d0b87728381f19a9f9191"
+					},
+					"response": []
+				},
+				{
+					"name": "deletePassportById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

@@ -7,7 +7,8 @@ export const createTicketValidator=(data)=>{
         to:Joi.string().required().trim(),
         price:Joi.number().required().min(0),
         departure:Joi.date().required(),
-        arrival:Joi.date().required()
+        arrival:Joi.date().required(),
+        customer_id:Joi.string().required()
     })
     return ticket.validate(data);
 }
@@ -18,7 +19,8 @@ export const updateTicketValidator=(data)=>{
         to:Joi.string().optional().trim(),
         price:Joi.number().optional().min(0),
         departure:Joi.date().optional(),
-        arrival:Joi.date().optional()
+        arrival:Joi.date().optional(),
+        customer_id:Joi.string().optional()
     })
     return ticket.validate(data);
 }
