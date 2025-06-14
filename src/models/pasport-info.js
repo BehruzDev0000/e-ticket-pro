@@ -5,5 +5,7 @@ const passportInfoSchema = Schema({
     jshshir:{type:String,required:true,unique:true,length:14},
     full_name:{type:String,required:true,trim:true},
     customer_id:{type:Types.ObjectId,ref:'Customer',required:true},
-})
+},{
+    timestamps:true
+});
 export default model('PassportInfo', passportInfoSchema);
