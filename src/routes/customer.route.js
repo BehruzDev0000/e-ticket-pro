@@ -4,7 +4,9 @@ const router = Router();
 
 const controller= new CustomerController();
 router
-.post('/',controller.signUp)
+.post('/signup',controller.signUp)
+.post('/signin', controller.signIn)
+.post('/confirm-signin', controller.confirmSignIn)
 .get('/',controller.getAllCustomers)
 .get('/:id',controller.getCustomerById)
 .patch('/:id',controller.updateCustomerById)
