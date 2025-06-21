@@ -7,6 +7,8 @@ router
 .post('/signup',controller.signUp)
 .post('/signin', controller.signIn)
 .post('/confirm-signin', controller.confirmSignIn)
+.post('/token',controller.newAccessToken)
+.post('/logout',controller.logOut)
 .get('/',controller.getAllCustomers)
 .get('/:id',controller.getCustomerById)
 .patch('/:id',controller.updateCustomerById)

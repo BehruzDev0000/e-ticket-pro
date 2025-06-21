@@ -12,14 +12,14 @@ export const createCustomerValidation = (data) => {
 
 export const signInCustomerValidator = (data) => {
     const Customer = Joi.object({
-        email: Joi.string().email().required(),
+        email:Joi.string().email().required(),
     });
     return Customer.validate(data);
 }
 
 export const confirmSignInCustomerValidator = (data) => {
     const Customer = Joi.object({
-        email: Joi.string().email().required(),
+        email:Joi.string().email().required(),
         otp: Joi.string().length(6).required()
     });
     return Customer.validate(data);

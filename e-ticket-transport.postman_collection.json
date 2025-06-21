@@ -312,13 +312,13 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "confirmSignIn",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"behruzdev0000@gmail.com\",\r\n    \"otp\":\"982237\"\r\n}",
+							"raw": "{\r\n    \"email\":\"behruzdev0000@gmail.com\",\r\n    \"otp\":\"509570\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,6 +326,28 @@
 							}
 						},
 						"url": "localhost:3000/customer/confirm-signin"
+					},
+					"response": []
+				},
+				{
+					"name": "newAccessToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"behruzdev0000@gmail.com\"\r\n}"
+						},
+						"url": "localhost:3000/customer/token"
+					},
+					"response": []
+				},
+				{
+					"name": "logOut",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "localhost:3000/customer/logout"
 					},
 					"response": []
 				}

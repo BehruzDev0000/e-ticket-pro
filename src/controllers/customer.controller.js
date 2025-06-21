@@ -13,103 +13,144 @@ const token = new Token();
 
 
 export class CustomerController {
-    async signUp(req, res) {
-        try {
-            const { value, error } = createCustomerValidation(req.body);
-            if (error) {
-                return handleError(res, error, 422);
-            }
-            const existingCustomer = await Customer.findOne({ phone_number: value.phone_number });
-                if (existingCustomer) {
-                    return handleError(res,'Phone number already registired');
-                    }
-            const existsEmail = await Customer.findOne({ email: value.email });
-            if (existsEmail) {
-                return handleError(res, 'Email address already registred', 409);
-            }
-            const customer = await Customer.create(value);
-            const payload = { id: Customer._id };
-            const accessToken = await token.generateAccessToken(payload);
-            const refreshToken = await token.generateRefreshToken(payload);
-            res.cookie('refreshTokenCustomer', refreshToken, {
-                httpOnly: true,
-                secure: true,
-                maxAge: 30 * 24 * 60 * 60 * 1000
-            });
-            return successRes(res, {
-                data: customer,
-                token: accessToken
-            }, 201);
-        } catch (error) {
-            return handleError(res, error);
-        }
-    }
+   async signUp(req, res) {
+    try {
+        const { value, error } = createCustomerValidation(req.body);
+        if (error) return handleError(res, error, 422);
 
-    async signIn(req, res) {
-        try {
-            const { value, error } = signInCustomerValidator(req.body);
-            if (error) {
-                return handleError(res, error, 422);
-            }
-            const email = value.email;
-            const customer = await Customer.findOne({ email });
-            if (!customer) {
-                return handleError(res, 'Customer not found', 404);
-            }
-            const otp = generateOtp();
-            const mailOptions = {
-                from: config.MAIL_USER,
-                to: email,
-                subject: 'e-navbat',
-                text: otp
-            };
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                    return handleError(res, 'Error on sending to email', 400);
-                } else {
-                    console.log(info);
-                }
-            })
-            cache.set(email, otp, 120);
-            return successRes(res, {
-                message: 'OTP sent successfully to email'
-            });
-        } catch (error) {
-            return handleError(res, error);
-        }
-    }
+        const { phone_number, email } = value;
 
-    async confirmSignIn(req, res) {
-        try {
-            const { value, error } = confirmSignInCustomerValidator(req.body);
-            if (error) {
-                return handleError(res, error, 422);
-            }
-            const customer = await Customer.findOne({ email: value.email });
-            if (!customer) {
-                return handleError(res, 'Customer not found', 404);
-            }
-            const cacheOTP = cache.get(value.email);
-            if (!cacheOTP || cacheOTP != value.otp) {
-                return handleError(res, 'OTP expired', 400);
-            }
-            const payload = { id: Customer._id };
-            const accessToken = await token.generateAccessToken(payload);
-            const refreshToken = await token.generateRefreshToken(payload);
-            res.cookie('refreshTokenCustomer', refreshToken, {
-                httpOnly: true,
-                secure: true,
-                maxAge: 30 * 24 * 60 * 60 * 1000
-            });
-            return successRes(res, {
-                data: customer,
-                token: accessToken
-            }, 201);
-        } catch (error) {
-            return handleError(res, error);
-        }
+        const existingCustomer = await Customer.findOne({ phone_number });
+        if (existingCustomer) return handleError(res, 'Phone number already registered');
+
+        const existsEmail = await Customer.findOne({ email });
+        if (existsEmail) return handleError(res, 'Email address already registered', 409);
+
+        const customer = await Customer.create(value);
+        const payload = { id: customer._id };
+
+
+        const accessToken = await token.generateAccessToken(payload);
+        const refreshToken = await token.generateRefreshToken(payload);
+
+        res.cookie('refreshTokenCustomer', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 30 * 24 * 60 * 60 * 1000
+        });
+
+        return successRes(res, {
+            data: customer,
+            token: accessToken
+        }, 201);
+    } catch (error) {
+        return handleError(res, error);
     }
+}
+
+async signIn(req, res) {
+    try {
+        const { value, error } = signInCustomerValidator(req.body);
+        if (error) return handleError(res, error, 422);
+
+        const { email } = value;
+
+        const customer = await Customer.findOne({ email });
+        if (!customer) return handleError(res, 'Customer not found', 404);
+
+        const otp = generateOtp();
+
+        const mailOptions = {
+            from: config.MAIL_USER,
+            to: email,
+            subject: 'e-navbat',
+            text: `Your OTP: ${otp}`
+        };
+
+        await transporter.sendMail(mailOptions); 
+        cache.set(email, otp, 120);
+
+        return successRes(res, { message: 'OTP sent successfully to email' });
+    } catch (error) {
+        return handleError(res, error);
+    }
+}
+
+async confirmSignIn(req, res) {
+    try {
+        const { value, error } = confirmSignInCustomerValidator(req.body);
+        if (error) return handleError(res, error, 422);
+
+        const { email, otp } = value;
+
+        const customer = await Customer.findOne({ email });
+        if (!customer) return handleError(res, 'Customer not found', 404);
+
+        const cacheOTP = cache.get(email);
+        if (!cacheOTP || cacheOTP !== otp) return handleError(res, 'OTP expired or invalid', 400);
+        cache.del(email)
+        const payload = { id: customer._id }; 
+
+        const accessToken = await token.generateAccessToken(payload);
+        const refreshToken = await token.generateRefreshToken(payload);
+
+        res.cookie('refreshTokenCustomer', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 30 * 24 * 60 * 60 * 1000
+        });
+
+        return successRes(res, {
+            data: customer,
+            token: accessToken
+        }, 201);
+    } catch (error) {
+        return handleError(res, error);
+    }
+}
+
+async newAccessToken(req, res) {
+    try {
+        const refreshToken = req.cookies?.refreshTokenCustomer;
+        if (!refreshToken) return handleError(res, 'Access token expired', 400);
+        const decodedToken = await token.verifyToken(refreshToken, config.REFRESH_TOKEN_KEY);
+
+
+        if (!decodedToken) return handleError(res, 'Invalid token', 400);
+        
+        const customer = await Customer.findById(decodedToken.id);
+        if (!customer) return handleError(res, 'Customer not found');
+        const accessToken = await token.generateAccessToken({ id: customer._id });
+        return successRes(res, { token: accessToken });
+    } catch (error) {
+        return handleError(res, error);
+    }
+}
+
+async logOut(req, res) {
+    try {
+        const refreshToken = req.cookies?.refreshTokenCustomer;
+        if (!refreshToken) return handleError(res, 'Access token missing', 401);
+
+        const decodedToken = await token.verifyToken(refreshToken, config.REFRESH_TOKEN_KEY);
+        if (!decodedToken) return handleError(res, 'Invalid token', 401);
+
+        const customer = await Customer.findById(decodedToken.id);
+        if (!customer) return handleError(res, 'Customer not found', 404);
+
+        res.clearCookie('refreshTokenCustomer', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None'
+        });
+
+        return successRes(res, { });
+    } catch (error) {
+        return handleError(res, error);
+    }
+}
+
+
     async getAllCustomers(_,res){
         try {
             const customers=await Customer.find()
